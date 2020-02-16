@@ -1,0 +1,48 @@
+\begin{thebibliography}{1}
+
+\bibitem{DeSchutter-ijrr2007}
+J.~De~Schutter, T.~De~Laet, J.~Rutgeerts, W.~Decr\'e, R.~Smits,
+  E.~Aertbeli\"en, K.~Claes, and H.~Bruyninckx.
+\newblock Constraint-based task specification and estimation for sensor-based
+  robot systems in the presence of geometric uncertainty.
+\newblock {\em The International Journal of Robotics Research}, 26(5), 2007.
+
+\bibitem{DecreBruyninckxDeSchutter2013}
+W.~Decr\'e, , H.~Bruyninckx, and J.~De~Schutter.
+\newblock Extending the {Itasc} constraint-based robot task specification
+  framework to time- independent trajectories and user-configurable task
+  horizons.
+\newblock In {\em Proceedings of the IEEE International Conference on Robotics
+  and Automation}, 2013.
+
+\bibitem{decre09}
+W.~Decr\'e, R.~Smits, H.~Bruyninckx, and J.~De~Schutter.
+\newblock Extending {iTaSC} to support inequality constraints and
+  non-instantaneous task specification.
+\newblock In {\em Proceedings of the 2009 IEEE International Conference on
+  Robotics and Automation}, Kobe, Japan, 2009.
+
+\bibitem{kalakrishnan2011learning}
+M.~Kalakrishnan, L.~Righetti, P.~Pastor, and S.~Schaal.
+\newblock Learning force control policies for compliant manipulation.
+\newblock In {\em 2011 IEEE/RSJ International Conference on Intelligent Robots
+  and Systems}. IEEE, 2011.
+
+\bibitem{leidner2017cognitive}
+D.~S. Leidner.
+\newblock {\em Cognitive Reasoning for Compliant Robot Manipulation}.
+\newblock PhD thesis, Universit{\"a}t Bremen, 2017.
+
+\bibitem{mason1981compliance}
+M.~T. Mason.
+\newblock Compliance and force control for computer controlled manipulators.
+\newblock {\em IEEE Transactions on Systems, Man, and Cybernetics}, 11(6),
+  1981.
+
+\bibitem{nagele2018prototype}
+F.~N{\"a}gele, L.~Halt, P.~Tenbrock, and A.~Pott.
+\newblock A prototype-based skill model for specifying robotic assembly tasks.
+\newblock In {\em 2018 IEEE International Conference on Robotics and Automation
+  (ICRA)}. IEEE, 2018.
+
+\end{thebibliography}

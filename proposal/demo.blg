@@ -1,0 +1,60 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: demo.aux
+The style file: abbrv.bst
+Database file #1: ../../project-proposal/bibliography.bib
+Warning--I'm ignoring decre09's extra "title" field
+--line 147 of file ../../project-proposal/bibliography.bib
+I was expecting a `,' or a `}'---line 157 of file ../../project-proposal/bibliography.bib
+ :  
+ :  keywords         = {constraint-based programming, task specification, iTaSC,
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--I'm ignoring DecreBruyninckxDeSchutter2013's extra "title" field
+--line 171 of file ../../project-proposal/bibliography.bib
+"{" immediately follows a field name---line 175 of file ../../project-proposal/bibliography.bib
+ :  year             = {2013},@inproceedings
+ :                                          {nagele2018prototype,
+I'm skipping whatever remains of this entry
+You've used 7 entries,
+            2118 wiz_defined-function locations,
+            540 strings with 5469 characters,
+and the built_in function-call counts, 2234 in all, are:
+= -- 199
+> -- 149
+< -- 0
++ -- 60
+- -- 52
+* -- 155
+:= -- 407
+add.period$ -- 23
+call.type$ -- 7
+change.case$ -- 46
+chr.to.int$ -- 0
+cite$ -- 7
+duplicate$ -- 85
+empty$ -- 161
+format.name$ -- 52
+if$ -- 449
+int.to.chr$ -- 0
+int.to.str$ -- 7
+missing$ -- 6
+newline$ -- 38
+num.names$ -- 14
+pop$ -- 58
+preamble$ -- 1
+purify$ -- 40
+quote$ -- 0
+skip$ -- 44
+stack$ -- 0
+substring$ -- 36
+swap$ -- 10
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 28
+warning$ -- 0
+while$ -- 14
+width$ -- 8
+write$ -- 78
+(There were 2 error messages)

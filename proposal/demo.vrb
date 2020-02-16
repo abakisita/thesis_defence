@@ -1,0 +1,14 @@
+
+^^I\begin{lstlisting}[label=open_door_ts,caption=Task specification for cutting vegetables]
+^^Iopen_door
+^^I{
+^^If_z = f(environment, robot, task, v_x)
+^^Iv_x = g(t)
+^^Imax_acc = a_max
+^^Imax_dec = a_dec
+^^I}until(f(...))
+
+^^I\end{lstlisting}
+^^I\begin{itemize}
+^^I^^I\item Force specification on compliant axis
+^^I\end{itemize}

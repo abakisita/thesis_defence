@@ -1,0 +1,237 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{beamerfhg}[2018/04/12 Fraunhofer Beamer style]
+
+\RequirePackage{fontspec}
+\RequirePackage{tikz}
+\RequirePackage{pgfopts}
+\defaultfontfeatures{Mapping=tex-text}
+
+\makeatletter
+
+%%%% Process style options
+%% Currently we allow to change the underlying beamer theme using e.g.
+%% \usepackage[theme=Singapore]{beamerfhg}
+%% A second option allows to switch the indentation scheme for
+%% itemize environments. Use
+%% \usepackage[fhgindent]{beamerfhg}
+%% to switch to a more Fraunhofer like indentation
+
+\pgfkeys{
+/beamerfhg/.cd,
+theme/.initial=default,
+theme/.get=\beamerfhg@theme,  
+theme/.store in=\beamerfhg@theme,  
+instlogo/.initial=FKIE-logo.png,
+instlogo/.get=\beamerfhg@instlogo,
+instlogo/.store in=\beamerfhg@instlogo,
+fhgindent/.initial=default,
+fhgindent/.store in=\beamerfhg@fhgindent,
+fhgindent/.get=\beamerfhg@fhgindent
+}
+
+\ProcessPgfOptions{/beamerfhg}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% Load the underlying beamer theme
+
+%% Ensure sidebar width exists
+%% It is typically only defined, if a sidebar theme is being used.
+%% Here, it is used for computing the background layout.
+\newlength{\beamer@sidebarwidth}
+\setlength\beamer@sidebarwidth{0pt}
+
+%% load the theme
+\usetheme{\beamerfhg@theme}
+
+%%%% Define FhG colors and color theme
+
+%%% structure colors + alert
+\definecolor{fhggreen}{RGB}{23,156,125}
+\definecolor{fhggrey}{RGB}{168,175,175}
+\definecolor{fhgred}{RGB}{212,4,0}
+
+%%% Graphics colors
+\definecolor{fhgorange}{RGB}{242,148,1}
+\definecolor{fhgblue1}{RGB}{31,130,192}
+\definecolor{fhgblue2}{RGB}{37,186,227}
+\definecolor{fhggreen2}{RGB}{177,200,0}
+
+%%% Box background colors
+\definecolor{fhggreybg}{RGB}{225,225,227}
+\definecolor{fhgorangebg}{RGB}{254,239,214}
+\definecolor{fhgbluebg}{RGB}{212,230,244}
+
+%%% basic color theme assignments
+\setbeamercolor{structure}{fg=fhggreen}
+\setbeamercolor{alert}{fg=fhgred}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{subtitle}{fg=fhggreen}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{framesubtitle}{fg=fhggreen}
+\setbeamercolor{subitem}{fg=fhggrey}
+
+%%%% Basic Fraunhofer Font assignment
+
+\setsansfont{FrutigerLTCom-Roman}
+\setbeamerfont{frametitle}{family=\fontspec{Frutiger LT Com 65 Bold}}
+\setbeamerfont{framesubtitle}{family=\fontspec{Frutiger LT Com 65 Bold}, size=\large}
+\setbeamerfont{title}{family=\fontspec{Frutiger LT Com 65 Bold}}
+\setbeamerfont{subtitle}{family=\fontspec{Frutiger LT Com 65 Bold}, size=\large}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% Macros for the Fraunhofer slide background
+
+%% To draw the horizontal lines correctly, we need to keep track
+%% of the different border margins used by the beamer outer themes
+
+\newlength{\backgroundleftmargin}
+\newlength{\backgroundrightmargin}
+
+\ifx\beamer@sidebarside\beamer@lefttext%
+  \setlength{\backgroundleftmargin}{\beamer@sidebarwidth}
+\else
+  \setlength{\backgroundrightmargin}{\beamer@sidebarwidth}
+\fi
+
+%% Fraunhofer uses two different slide backgrounds 
+%% One for title pages and one for all the others
+
+%% We allow switching between backgrounds using the boolean
+%% \titlebackground
+%% \titlebackgroundtrue   switch to the titlepage layout
+%% \titlebackgroundfalse  switchs to the ordinary background
+
+\newif\iftitlebackground\titlebackgroundfalse
+
+%% definition of the ordinary background, i.e.
+%% a horizontal line above the footer + institute logo
+%% on the left side of the footer
+
+\newcommand{\insertordinarybackground}[0]{%
+	\begin{tikzpicture}
+                \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+                \draw[color=structure,line width=1pt]
+                  ([xshift=\backgroundleftmargin+0.626cm, yshift=0.918cm]current page.south west) --
+                  ([xshift=-0.626cm-\backgroundrightmargin, yshift=0.918cm]current page.south east);
+                \node at ([xshift=-1.7cm-\backgroundrightmargin, yshift=0.454cm]current
+                page.south east) {\includegraphics[height=0.585cm]{\beamerfhg@instlogo}};
+	\end{tikzpicture}
+}
+
+%% definition of the titlepage background, i.e.
+%% Three horizontal lines and no logo in the footer
+%% Title frames have to be typeset in plain mode.
+%% Otherwise, the offsets are wrong. Also, sidbars or
+%% headlines look ugly on the titlepage.
+
+\newcommand{\inserttitlebackground}[0]{%
+	\begin{tikzpicture}
+                \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+                 \draw[color=structure,line width=2pt] 
+                   ([xshift=+0.626cm, yshift=\headheight-0.5cm]current page.north west) --
+                   ([xshift=-0.626cm, yshift=\headheight-0.5cm]current page.north east);
+                 \draw[color=structure,line width=1pt] 
+                   ([xshift=0.626cm, yshift=\headheight-3.4cm]current page.north west) --
+                   ([xshift=-0.626cm, yshift=\headheight-3.4cm]current page.north east);
+
+                \draw[color=structure,line width=1pt]
+                  ([xshift=+0.626cm, yshift=0.918cm]current page.south west) --
+                  ([xshift=-0.626cm, yshift=0.918cm]current page.south east);
+	\end{tikzpicture}
+}
+
+%% The background switch
+
+\setbeamertemplate{background}{%
+\iftitlebackground%
+  \inserttitlebackground
+\else%
+  \insertordinarybackground
+\fi
+}
+
+%% In the Fraunhofer slide design, the text margin agrees with the 
+%% indent of the horizontal lines
+
+\setbeamersize{text margin left=0.626cm}
+
+
+%% No navigation symbols for now
+\setbeamertemplate{navigation symbols}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% Fraunhofer frametitle definitions 
+
+\setbeamertemplate{frametitle}[default][left, leftskip=0.32cm]
+\setbeamertemplate{framesubtitle}[default]
+
+%% add one line of extra space between the frame title and the body
+\addtobeamertemplate{frametitle}{}{\vspace{1em}} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%% Fraunhofer titlepage definition
+
+%% This layout fits the background,
+%% feel free to copy and change as needed
+
+\setbeamertemplate{title page}{
+\vspace{0.5cm}
+  \begingroup
+    \hskip-\backgroundleftmargin\begin{beamercolorbox}[sep=0pt,left]{title}
+      \usebeamerfont{title}\inserttitle\par%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+    \end{beamercolorbox}%
+    \vskip1.5em\par
+    \hskip-\backgroundleftmargin\begin{beamercolorbox}[sep=0pt,left]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}%
+    \vskip0.5em\par
+    \hskip-\backgroundleftmargin\begin{beamercolorbox}[sep=0pt,left]{date}
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}\vskip0.5em
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+   \endgroup
+  \vfill
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%% Fraunhofer itemize definitions
+
+%% Fraunhofer uses the same font size for all levels
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\normalsize}
+
+%% scale and raise the item marker according to the current font size
+\newlength{\beamerfhg@M}
+\newcommand{\fhgsquare}[0]{%
+  \settoheight{\beamerfhg@M}{M}%
+  \raise0.0875\beamerfhg@M%
+  \hbox{\vrule width 0.825\beamerfhg@M height 0.825\beamerfhg@M}%
+}
+
+%% The same item marker for all levels
+\setbeamertemplate{itemize item}{\fhgsquare}
+\setbeamertemplate{itemize subitem}{\fhgsquare}
+\setbeamertemplate{itemize subsubitem}{\fhgsquare}
+
+%% if the package option fhgindent is set, switch to Fraunhofer style item indentation.
+%% In this style the toplevel itemize has no indentation. This does not look nice for enumeration
+%% environments which use the same indent. For this reason it is optional.
+\def\beamerfhg@default{default}
+\ifx\beamerfhg@fhgindent\beamerfhg@default\else
+  \settowidth{\leftmargini}{\usebeamertemplate{itemize item}}
+  \addtolength{\leftmargini}{0.1716cm}\addtolength{\leftmargini}{1pt}
+  \settowidth{\leftmarginii}{\usebeamertemplate{itemize subitem}}
+  \addtolength{\leftmarginii}{\labelsep}\addtolength{\leftmarginii}{1pt}
+  \settowidth{\leftmarginiii}{\usebeamertemplate{itemize subsubitem}}
+  \addtolength{\leftmarginiii}{\labelsep}\addtolength{\leftmarginiii}{1pt}
+\fi
+
+\makeatother

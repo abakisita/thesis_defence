@@ -1,0 +1,14 @@
+\frametitle{~}\framesubtitle {Task Specification for cutting vegetables}
+^^I^^I\begin{figure}
+\begin{lstlisting}[label=cut_vegies,caption=Cut vegetables]
+    move compliantly {
+        with task frame directions
+        xt: velocity 0 m/s
+        yt: velocity v(t) m/s
+        zt: force f(environment, robot, task) N
+        axt: velocity 0 rad/s
+        ayt: velocity 0 rad/s
+        azt: velocity 0 rad/s
+    }until distance y > d m
+\end{lstlisting}
+^^I^^I\end{figure}
